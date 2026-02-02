@@ -5,6 +5,7 @@ import { StatusBar, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
+  FormLoginCostumer,
   SplashScreen,
   SwitchLogin
 } from './components';
@@ -20,6 +21,7 @@ const CustomHeader = () => {
         paddingTop: useSafeAreaInsets().top,
       }}>
       <StatusBar backgroundColor="#000000" />
+
     </View>
   );
 };
@@ -87,6 +89,11 @@ const MainStackNavigator = () => {
       <Stack.Screen
         name="SwitchLogin"
         component={SwitchLogin}
+        options={{ header: () => <CustomHeader /> }}
+      />
+      <Stack.Screen
+        name="FormLoginCostumer"
+        component={FormLoginCostumer}
         options={{ header: () => <CustomHeader /> }}
       />
     </Stack.Navigator>

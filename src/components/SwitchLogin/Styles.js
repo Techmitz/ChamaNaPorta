@@ -4,8 +4,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#f5f5f5',
+    justifyContent: 'flex-start',
   },
   button: {
     width: '90%',

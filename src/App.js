@@ -68,9 +68,9 @@ export default function App() {
     <>
       <SafeAreaProvider>
         <StatusBar backgroundColor="#000000FF" />
-          <NavigationContainer ref={navigationRef}>
-            <MainStackNavigator />
-          </NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
+          <MainStackNavigator />
+        </NavigationContainer>
       </SafeAreaProvider>
     </>
   );
