@@ -3,8 +3,10 @@ import React, { useEffect, useRef } from 'react';
 import { BackHandler, Platform, StatusBar, Toast, ToastAndroid } from 'react-native';
 import { en, registerTranslation } from 'react-native-paper-dates';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
 import MainStackNavigator from './Navigator';
 import { navigationRef } from './services/NavigatorService';
+import store from './store';
 
 registerTranslation('en', en);
 
@@ -68,9 +70,11 @@ export default function App() {
     <>
       <SafeAreaProvider>
         <StatusBar backgroundColor="#000000FF" />
-        <NavigationContainer ref={navigationRef}>
-          <MainStackNavigator />
-        </NavigationContainer>
+        <Provider store={store}>
+          <NavigationContainer ref={navigationRef}>
+            <MainStackNavigator />
+          </NavigationContainer>
+        </Provider>
       </SafeAreaProvider>
     </>
   );

@@ -11,7 +11,9 @@ import {
 import { Button, HelperText, TextInput } from 'react-native-paper';
 import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { connect } from 'react-redux';
 import { login_worker } from '../../../../assets';
+import { modifyEmail, modifyPassword } from '../../../../store/actions/userCostumerActions';
 import styles from './Styles';
 
 class FormLoginCostumer extends Component {
@@ -140,9 +142,7 @@ class FormLoginCostumer extends Component {
                     onChangeText={text => {
                       this.setState({ emailError: '' });
 
-                      if (this.props.onEmailChange) {
-                        this.props.onEmailChange(text);
-                      }
+                      this.props.onModifyEmail(text)
                     }}
                   />
                   <HelperText type="error" visible={!!this.state.emailError}>
@@ -161,9 +161,7 @@ class FormLoginCostumer extends Component {
                     onChangeText={text => {
                       this.setState({ passwordError: '' });
 
-                      if (this.props.onPasswordChange) {
-                        this.props.onPasswordChange(text);
-                      }
+                      this.props.onModifyPassword(text)
                     }}
                   />
                   <HelperText type="error" visible={!!this.state.passwordError}>
@@ -201,4 +199,14 @@ class FormLoginCostumer extends Component {
   }
 }
 
-export default FormLoginCostumer;
+const mapDispatchToProps = dispatch => ({
+  onModifyEmail: email => dispatch(modifyEmail(email)),
+  onModifyPassword: password => dispatch(modifyPassword(password)),
+});
+
+const mapStateToProps = state => ({
+  email: state.userCostumerReducer.email,
+  password: state.userCostumerReducer.password
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormLoginCostumer);
