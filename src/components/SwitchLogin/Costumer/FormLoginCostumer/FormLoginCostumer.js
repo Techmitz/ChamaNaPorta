@@ -9,11 +9,13 @@ import {
   View
 } from 'react-native';
 import { Button, HelperText, TextInput } from 'react-native-paper';
-import { SafeAreaInsetsContext } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
+import { styleinput } from '../../../../../styles';
 import { login_worker } from '../../../../assets';
+import NavigatorService from '../../../../services/NavigatorService';
 import { modifyEmail, modifyPassword } from '../../../../store/actions/userCostumerActions';
+import { AndroidBottomBar } from '../../../common';
 import styles from './Styles';
 
 class FormLoginCostumer extends Component {
@@ -79,9 +81,13 @@ class FormLoginCostumer extends Component {
 
   validateFields() {
     let isValid = true;
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!this.props.email || !this.props.email.includes('@')) {
       this.setState({ emailError: 'Digite um e-mail válido!' });
+      isValid = false;
+    } else if (!regex.test(this.props.email)) {
+      this.setState({ emailError: 'Formato de e-mail inválido!' });
       isValid = false;
     }
 
@@ -102,99 +108,93 @@ class FormLoginCostumer extends Component {
 
   render() {
     return (
-      <SafeAreaInsetsContext.Consumer>
+      <AndroidBottomBar barColor="#000" backgroundColor="#FFF">
         {(insets) => (
-          <View style={{ flex: 1, backgroundColor: '#FFF' }}>
-            <KeyboardAvoidingView
-              // No Android, "height" é o que costuma dar esse efeito de subir o bloco todo
-              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-              style={{ flex: 1 }}
-            >
-              <LottieView
-                source={login_worker}
-                speed={1.2}
-                autoPlay
-                loop
-                style={{ width: '100%', height: 250 }}
-              />
+          <KeyboardAvoidingView
+            // No Android, "height" é o que costuma dar esse efeito de subir o bloco todo
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={{ flex: 1 }}
+          >
+            <LottieView
+              source={login_worker}
+              speed={1.2}
+              autoPlay
+              loop
+              style={{ width: '100%', height: 250 }}
+            />
 
-              {/* O SEGREDO: Remova o justifyContent: 'center' do Styles.js e use padding aqui */}
-              <View style={{
-                flex: 1,
-                paddingHorizontal: 20,
-                paddingTop: 20, // Ajuste para a Lottie não colar no topo
-                paddingBottom: insets.bottom + 20
-              }}>
-
+            {/* O SEGREDO: Remova o justifyContent: 'center' do Styles.js e use padding aqui */}
+            <View style={{
+              flex: 1,
+              paddingHorizontal: 20,
+              paddingTop: 20, // Ajuste para a Lottie não colar no topo
+              paddingBottom: insets.bottom + 20
+            }}>
 
 
-                {/* Envolvendo os inputs para garantir que subam juntos */}
-                <View>
-                  <TextInput
-                    label="Email"
-                    value={this.props.email}
-                    returnKeyType="next"
-                    keyboardType="email-address"
-                    onSubmitEditing={() => this.passwordRef.current?.focus()}
-                    mode="outlined"
-                    error={!!this.state.emailError}
-                    theme={{ colors: { primary: '#000' } }}
-                    onChangeText={text => {
-                      this.setState({ emailError: '' });
 
-                      this.props.onModifyEmail(text)
-                    }}
-                  />
-                  <HelperText type="error" visible={!!this.state.emailError}>
-                    {this.state.emailError}
-                  </HelperText>
+              {/* Envolvendo os inputs para garantir que subam juntos */}
+              <View>
+                <TextInput
+                  label="Email"
+                  value={this.props.email}
+                  returnKeyType="next"
+                  keyboardType="email-address"
+                  onSubmitEditing={() => this.passwordRef.current?.focus()}
+                  mode="outlined"
+                  error={!!this.state.emailError}
+                  theme={{ colors: { primary: '#000' } }}
+                  onChangeText={text => {
+                    this.setState({ emailError: '' });
 
-                  <TextInput
-                    label="Senha"
-                    value={this.props.password}
-                    ref={this.passwordRef}
-                    secureTextEntry={this.state.iconPassword}
-                    mode="outlined"
-                    error={!!this.state.passwordError}
-                    theme={{ colors: { primary: '#000' } }}
-                    right={<TextInput.Icon icon={this.state.icon} onPress={() => this.changeIcon()} />}
-                    onChangeText={text => {
-                      this.setState({ passwordError: '' });
+                    this.props.onModifyEmail(text)
+                  }}
+                />
+                <HelperText style={styleinput.helperText} type="error" visible={!!this.state.emailError}>
+                  {this.state.emailError}
+                </HelperText>
 
-                      this.props.onModifyPassword(text)
-                    }}
-                  />
-                  <HelperText type="error" visible={!!this.state.passwordError}>
-                    {this.state.passwordError}
-                  </HelperText>
-                </View>
+                <TextInput
+                  label="Senha"
+                  value={this.props.password}
+                  ref={this.passwordRef}
+                  secureTextEntry={this.state.iconPassword}
+                  mode="outlined"
+                  error={!!this.state.passwordError}
+                  theme={{ colors: { primary: '#000' } }}
+                  right={<TextInput.Icon icon={this.state.icon} onPress={() => this.changeIcon()} />}
+                  onChangeText={text => {
+                    this.setState({ passwordError: '' });
 
-                <TouchableOpacity
-                  style={{ marginBottom: 20, alignItems: 'center' }}
-                  onPress={() => NavigationService.navigate('FormForgotPassword')}>
-                  <Text>Esqueceu sua senha?</Text>
-                </TouchableOpacity>
-
-                {this.renderBtnLogin()}
-                <View style={{ height: 10 }} />
-                {this.renderBtnGoogle()}
-
-                <TouchableOpacity
-                  onPress={() => NavigationService.navigate('FormSignUp')}
-                  style={{ marginTop: 'auto', marginBottom: 20 }}
-                >
-                  <Text style={styles.signUpText}>Não tem uma conta? Cadastre-se</Text>
-                </TouchableOpacity>
+                    this.props.onModifyPassword(text)
+                  }}
+                />
+                <HelperText style={styleinput.helperText} type="error" visible={!!this.state.passwordError}>
+                  {this.state.passwordError}
+                </HelperText>
               </View>
-            </KeyboardAvoidingView>
 
-            {/* Barra preta fixa que não é empurrada pelo teclado */}
-            {!this.state.isKeyboardVisible && (
-              <View style={{ height: insets.bottom, backgroundColor: '#000' }} />
-            )}
-          </View>
+              <TouchableOpacity
+                style={{ marginBottom: 20, alignItems: 'center' }}
+                onPress={() => NavigatorService.navigate('FormForgotPasswordCostumer')}>
+                <Text>Esqueceu sua senha?</Text>
+              </TouchableOpacity>
+
+              {this.renderBtnLogin()}
+              <View style={{ height: 10 }} />
+              {this.renderBtnGoogle()}
+
+              <TouchableOpacity
+                onPress={() => NavigatorService.navigate('FormSignUpCostumer')}
+                style={{ marginTop: 'auto', marginBottom: 20 }}
+              >
+                <Text style={styles.signUpText}>Não tem uma conta? Cadastre-se</Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+
         )}
-      </SafeAreaInsetsContext.Consumer>
+      </AndroidBottomBar>
     );
   }
 }

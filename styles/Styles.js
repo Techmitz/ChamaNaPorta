@@ -7,6 +7,13 @@ export const colors = {
   PROFESSIONAL: '#FF8000',
 };
 
+export const styleinput = StyleSheet.create({
+  helperText: {
+    width: '90%',
+    paddingHorizontal: 10,
+  },
+});
+
 export const styleButton = StyleSheet.create({
   textButton: {
     fontSize: 16,

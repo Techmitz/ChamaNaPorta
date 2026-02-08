@@ -8,13 +8,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
   input: {
-    width: '90%',
-    marginBottom: 0,
-    backgroundColor: '#FFF',
+    width: '100%'
   },
   button: {
     width: '100%',
-    marginBottom: 10,
+    marginTop: 10,
     backgroundColor: '#000000',
   },
   googleButton: {

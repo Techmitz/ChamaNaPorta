@@ -5,7 +5,9 @@ import { StatusBar, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
+  FormForgotPasswordCostumer,
   FormLoginCostumer,
+  FormSignUpCostumer,
   SplashScreen,
   SwitchLogin
 } from './components';
@@ -95,6 +97,34 @@ const MainStackNavigator = () => {
         name="FormLoginCostumer"
         component={FormLoginCostumer}
         options={{ header: () => <CustomHeader /> }}
+      />
+      <Stack.Screen
+        name="FormForgotPasswordCostumer"
+        component={FormForgotPasswordCostumer}
+        options={{
+          title: 'Redefinir Senha',
+          headerStyle: {
+            backgroundColor: '#000000',
+          },
+          headerTintColor: '#ffffff',
+          headerTitleStyle: {
+            color: '#ffffff',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="FormSignUpCostumer"
+        component={FormSignUpCostumer}
+        options={{
+          title: 'Cadastro de Cliente',
+          headerStyle: {
+            backgroundColor: '#000000',
+          },
+          headerTintColor: '#ffffff',
+          headerTitleStyle: {
+            color: '#ffffff',
+          },
+        }}
       />
     </Stack.Navigator>
   );

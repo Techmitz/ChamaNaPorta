@@ -1,3 +1,4 @@
-import { colors, styleButton } from './Styles';
+import { colors, styleButton, styleinput } from './Styles';
 
-export { colors, styleButton };
+export { colors, styleButton, styleinput };
+
