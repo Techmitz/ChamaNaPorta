@@ -6,23 +6,29 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
   FormForgotPasswordCostumer,
+  FormForgotPasswordProfessional,
   FormLoginCostumer,
+  FormLoginProfessional,
   FormSignUpCostumer,
   SplashScreen,
   SwitchLogin
 } from './components';
+import FormSignUpProfessional from './components/SwitchLogin/Professional/FormLoginProfessional/FormSignUpProfessional/FormSignUpProfessional';
 const Stack = createNativeStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
-const CustomHeader = () => {
+const CustomHeader = ({ backgroundColor }) => {
   return (
     <View
       style={{
-        backgroundColor: '#000000',
+        backgroundColor,
         paddingTop: useSafeAreaInsets().top,
       }}>
-      <StatusBar backgroundColor="#000000" />
+      <StatusBar
+        backgroundColor={backgroundColor}
+        barStyle="light-content"
+      />
 
     </View>
   );
@@ -86,17 +92,17 @@ const MainStackNavigator = () => {
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}
-        options={{ header: () => <CustomHeader /> }}
+        options={{ header: () => <CustomHeader backgroundColor="#000000" /> }}
       />
       <Stack.Screen
         name="SwitchLogin"
         component={SwitchLogin}
-        options={{ header: () => <CustomHeader /> }}
+        options={{ header: () => <CustomHeader backgroundColor="#000000" /> }}
       />
       <Stack.Screen
         name="FormLoginCostumer"
         component={FormLoginCostumer}
-        options={{ header: () => <CustomHeader /> }}
+        options={{ header: () => <CustomHeader backgroundColor="#000000" /> }}
       />
       <Stack.Screen
         name="FormForgotPasswordCostumer"
@@ -126,6 +132,40 @@ const MainStackNavigator = () => {
           },
         }}
       />
+      <Stack.Screen
+        name="FormLoginProfessional"
+        component={FormLoginProfessional}
+        options={{ header: () => <CustomHeader backgroundColor="#000000" /> }}
+      />
+      <Stack.Screen
+        name="FormForgotPasswordProfessional"
+        component={FormForgotPasswordProfessional}
+        options={{
+          title: 'Redefinir Senha',
+          headerStyle: {
+            backgroundColor: "#000",
+          },
+          headerTintColor: '#ffffff',
+          headerTitleStyle: {
+            color: '#ffffff',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="FormSignUpProfessional"
+        component={FormSignUpProfessional}
+        options={{
+          title: 'Cadastro de Profissional',
+          headerStyle: {
+            backgroundColor: '#000000',
+          },
+          headerTintColor: '#ffffff',
+          headerTitleStyle: {
+            color: '#ffffff',
+          },
+        }}
+      />
+
     </Stack.Navigator>
   );
 };

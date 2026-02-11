@@ -5,14 +5,12 @@ import {
 } from 'react-native';
 import { Button, HelperText, TextInput } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { forgot_password_costumer } from '../../../../../assets';
-import {
-  modifyEmail
-} from '../../../../../store/actions/userCostumerActions';
+import { forgot_password_professional } from '../../../../../assets';
+import { modifyEmail } from '../../../../../store/actions/userProfessionalActions';
 import { AndroidBottomBar } from '../../../../common';
 import styles from '../Styles';
 
-class FormForgotPasswordCostumer extends Component {
+class FormForgotPasswordProfessional extends Component {
   constructor(props) {
     super(props);
 
@@ -55,7 +53,7 @@ class FormForgotPasswordCostumer extends Component {
   handleSubmit = () => {
     if (this.validateFields()) {
       //this.props.onForgotPassword(this.props.email);
-      console.log("Email enviado para redefinição de senha Costumer");
+      console.log("Email enviado para redefinição de senha Professional");
     }
   };
 
@@ -65,7 +63,7 @@ class FormForgotPasswordCostumer extends Component {
         {(insets) => (
           <View style={{ flex: 1, paddingHorizontal: 20, paddingTop: 20, paddingBottom: insets.bottom + 20 }}>
             <LottieView
-              source={forgot_password_costumer}
+              source={forgot_password_professional}
               autoPlay
               loop
               style={{
@@ -108,7 +106,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  email: state.customer.email,
+  email: state.professional.email,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormForgotPasswordCostumer);
+export default connect(mapStateToProps, mapDispatchToProps)(FormForgotPasswordProfessional);

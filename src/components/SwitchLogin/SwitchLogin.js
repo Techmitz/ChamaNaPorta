@@ -44,7 +44,7 @@ export default class SwitchLogin extends Component {
                 mode="contained"
                 style={[styles.button, { backgroundColor: colors.PROFESSIONAL }]}
                 textColor="#FFF"
-                onPress={() => { }}>
+                onPress={() => NavigatorService.navigate('FormLoginProfessional')}>
                 Sou Profissional
               </Button>
             </View>

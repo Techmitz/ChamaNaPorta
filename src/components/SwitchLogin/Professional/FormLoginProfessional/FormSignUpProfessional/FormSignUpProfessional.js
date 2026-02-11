@@ -8,18 +8,13 @@ import {
 } from 'react-native';
 import { Button, HelperText, TextInput } from 'react-native-paper';
 import { connect } from 'react-redux';
-import { styleinput } from '../../../../../styles';
-import { create_user_costumer } from '../../../../assets';
-import {
-  createUserCostumer,
-  modifyEmail,
-  modifyName,
-  modifyPassword,
-} from '../../../../store/actions/userCostumerActions';
-import { AndroidBottomBar } from '../../../common';
+import { styleinput } from '../../../../../../styles';
+import { create_user_professional } from '../../../../../assets';
+import { modifyEmail, modifyName, modifyPassword } from '../../../../../store/actions/userProfessionalActions';
+import { AndroidBottomBar } from '../../../../common';
 import styles from './Styles';
 
-class FormSignUpCostumer extends Component {
+class FormSignUpProfessional extends Component {
   constructor(props) {
     super(props);
 
@@ -109,7 +104,7 @@ class FormSignUpCostumer extends Component {
                 }}>
                 <View style={styles.container}>
                   <LottieView
-                    source={create_user_costumer}
+                    source={create_user_professional}
                     autoPlay
                     loop
                     style={{ width: '100%', height: 250 }}
@@ -196,14 +191,14 @@ const mapDispatchToProps = dispatch => ({
   onModifyName: name => dispatch(modifyName(name)),
   onModifyEmail: email => dispatch(modifyEmail(email)),
   onModifyPassword: password => dispatch(modifyPassword(password)),
-  onCreateUser: user => dispatch(createUserCostumer(user)),
+  onCreateUser: user => dispatch(createUserProfessional(user)),
 });
 
 const mapStateToProps = state => ({
   //registrationInProgress: state.userReducer.registrationInProgress,
-  name: state.userCostumerReducer.name,
-  email: state.userCostumerReducer.email,
-  password: state.userCostumerReducer.password,
+  name: state.professional.name,
+  email: state.professional.email,
+  password: state.professional.password,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormSignUpCostumer);
+export default connect(mapStateToProps, mapDispatchToProps)(FormSignUpProfessional);

@@ -11,14 +11,14 @@ import {
 import { Button, HelperText, TextInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
-import { styleinput } from '../../../../../styles';
-import { login_worker } from '../../../../assets';
+import { colors, styleinput } from '../../../../../styles';
+import { login_professional } from '../../../../assets';
 import NavigatorService from '../../../../services/NavigatorService';
-import { modifyEmail, modifyPassword } from '../../../../store/actions/userCostumerActions';
+import { modifyEmail, modifyPassword } from '../../../../store/actions/userProfessionalActions';
 import { AndroidBottomBar } from '../../../common';
 import styles from './Styles';
 
-class FormLoginCostumer extends Component {
+class FormLoginProfessional extends Component {
   constructor(props) {
     super(props);
 
@@ -111,27 +111,22 @@ class FormLoginCostumer extends Component {
       <AndroidBottomBar barColor="#000" backgroundColor="#FFF">
         {(insets) => (
           <KeyboardAvoidingView
-            // No Android, "height" é o que costuma dar esse efeito de subir o bloco todo
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={{ flex: 1 }}
           >
             <LottieView
-              source={login_worker}
+              source={login_professional}
               speed={1.2}
               autoPlay
               loop
-              style={{ width: '100%', height: 250 }}
+              style={{ width: '100%', height: 300 }}
             />
 
-            {/* O SEGREDO: Remova o justifyContent: 'center' do Styles.js e use padding aqui */}
             <View style={{
               flex: 1,
               paddingHorizontal: 20,
-              paddingTop: 20, // Ajuste para a Lottie não colar no topo
               paddingBottom: insets.bottom + 20
             }}>
-
-
 
               {/* Envolvendo os inputs para garantir que subam juntos */}
               <View>
@@ -176,7 +171,7 @@ class FormLoginCostumer extends Component {
 
               <TouchableOpacity
                 style={{ marginBottom: 20, alignItems: 'center' }}
-                onPress={() => NavigatorService.navigate('FormForgotPasswordCostumer')}>
+                onPress={() => NavigatorService.navigate('FormForgotPasswordProfessional')}>
                 <Text>Esqueceu sua senha?</Text>
               </TouchableOpacity>
 
@@ -185,7 +180,7 @@ class FormLoginCostumer extends Component {
               {this.renderBtnGoogle()}
 
               <TouchableOpacity
-                onPress={() => NavigatorService.navigate('FormSignUpCostumer')}
+                onPress={() => NavigatorService.navigate('FormSignUpProfessional')}
                 style={{ marginTop: 'auto', marginBottom: 20 }}
               >
                 <Text style={styles.signUpText}>Não tem uma conta? Cadastre-se</Text>
@@ -205,8 +200,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  email: state.customer.email,
-  password: state.customer.password
+  email: state.professional.email,
+  password: state.professional.password
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormLoginCostumer);
+export default connect(mapStateToProps, mapDispatchToProps)(FormLoginProfessional);
